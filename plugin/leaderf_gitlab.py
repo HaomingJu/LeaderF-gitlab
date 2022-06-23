@@ -20,6 +20,8 @@ class GitLabAPIs:
             response = requests.get(url = url_str, headers = self.header, timeout = timeout)
             if response.status_code == 200:
                 return callback_func(response.json())
+            else:
+                return ["-1 requests return code: {}".format(response.status_code)]
         except requests.exceptions.ReadTimeout:
             return ["-1 GET request ReadTimeout"]
         except requests.exceptions.ConnectionError:
