@@ -8,6 +8,36 @@ function! s:init_python()
     if s:inited != 0
         return 0
     endif
+
+    if !exists("g:Lf_PythonVersion")
+        if has("python3")
+            let g:Lf_PythonVersion = 3
+            let g:Lf_py = "py3 "
+        elseif has("python")
+            let g:Lf_PythonVersion = 2
+            let g:Lf_py = "py "
+        else
+            echoe "Error: LeaderF requires vim compiled with +python or +python3"
+            finish
+        endif
+    else
+        if g:Lf_PythonVersion == 2
+            if has("python")
+                let g:Lf_py = "py "
+            else
+                echoe 'LeaderF Error: has("python") == 0'
+                finish
+            endif
+        else
+            if has("python3")
+                let g:Lf_py = "py3 "
+            else
+                echoe 'LeaderF Error: has("python3") == 0'
+                finish
+            endif
+        endif
+    endif
+
     exec g:Lf_py 'import sys, vim'
     exec g:Lf_py '_pp = vim.eval("s:home")'
     exec g:Lf_py 'if _pp not in sys.path: sys.path.append(_pp)'
@@ -25,10 +55,6 @@ endfunc
 
 function! s:lf_gitlab_source(...)
     let l:source = []
-    if s:inited == 0
-        call s:init_python()
-        let s:inited = 1
-    endif
     if g:Lf_PythonVersion == 2
         let l:source = pyeval('leaderf_gitlab.mr()')
     else
@@ -39,3 +65,5 @@ endfunc
 
 let g:Lf_Extensions.mr = {
             \ 'source': string(function('s:lf_gitlab_source'))[10:-3]}
+
+call s:init_python()
