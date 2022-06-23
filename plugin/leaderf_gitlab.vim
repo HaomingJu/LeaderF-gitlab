@@ -1,9 +1,10 @@
+"Create by Haoming on 2022-04-14
+
 let s:inited = 0
 let g:Lf_Extensions = get(g:, 'Lf_Extensions', {})
 let s:home = fnamemodify(resolve(expand('<sfile>:p')), ':h')
 
 function! s:init_python()
-    echo "------"
     if s:inited != 0
         return 0
     endif
@@ -29,12 +30,12 @@ function! s:lf_gitlab_source(...)
         let s:inited = 1
     endif
     if g:Lf_PythonVersion == 2
-        let l:source = pyeval('leaderf_gitlab.request_mr()')
+        let l:source = pyeval('leaderf_gitlab.mr()')
     else
-        let l:source = py3eval('leaderf_gitlab.request_mr()')
+        let l:source = py3eval('leaderf_gitlab.mr()')
     endif
     return l:source
 endfunc
 
-let g:Lf_Extensions.gitlab = {
+let g:Lf_Extensions.mr = {
             \ 'source': string(function('s:lf_gitlab_source'))[10:-3]}
