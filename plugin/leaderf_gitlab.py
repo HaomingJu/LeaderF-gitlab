@@ -18,10 +18,7 @@ class GitLabAPIs:
     def request_any_get(self, url_str, timeout, callback_func):
         try:
             response = requests.get(url = url_str, headers = self.header, timeout = timeout)
-            if response.status_code == 200:
-                return callback_func(response.json())
-            else:
-                return ["-1 requests return code: {}".format(response.status_code)]
+            return callback_func(response)
         except requests.exceptions.ReadTimeout:
             return ["-1 GET request ReadTimeout"]
         except requests.exceptions.ConnectionError:
@@ -29,12 +26,13 @@ class GitLabAPIs:
         except:
             return ["-1 GET requests ERROR"]
 
+    def request_ping(self):
+        try:
+            response = requests.get(url = self.request_code("/version"), headers = self.header, timeout = 0.5)
+            return callback.version(response)
+        except:
+            return False
 
-    def request_version(self):
-        return self.request_any_get(
-                url_str = self.request_code("/version"), 
-                timeout = 2,
-                callback_func =  callback.version)
 
     def request_mr(self):
         return self.request_any_get(
@@ -42,7 +40,7 @@ class GitLabAPIs:
                 timeout = 0.5,
                 callback_func =  callback.mr)
 
-
 # PUBLIC APIs
 gitlab = GitLabAPIs()
 def mr(): return gitlab.request_mr()
+def ping(): return gitlab.request_ping()
