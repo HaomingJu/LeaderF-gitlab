@@ -1,5 +1,4 @@
 import logging
-import config
 
 def version(response):
     if response.status_code == 200:

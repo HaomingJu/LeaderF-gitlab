@@ -1,7 +1,6 @@
 import requests
 import logging
 import callback
-import config
 import vim
 import os
 
