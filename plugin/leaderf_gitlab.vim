@@ -3,6 +3,7 @@
 let s:inited = 0
 let g:Lf_Extensions = get(g:, 'Lf_Extensions', {})
 let s:home = fnamemodify(resolve(expand('<sfile>:p')), ':h')
+let s:db_path = ""
 
 function! s:init_python()
     if s:inited != 0
@@ -64,8 +65,10 @@ function! s:lf_gitlab_ping()
     let l:ping = v:false
     if g:Lf_PythonVersion == 2
         let l:ping = pyeval('leaderf_gitlab.ping()')
+        let s:db_path = pyeval('leaderf_gitlab.db_path()')
     else
         let l:ping = py3eval('leaderf_gitlab.ping()')
+        let s:db_path = py3eval('leaderf_gitlab.db_path()')
     endif
 
     if l:ping == v:false
@@ -85,8 +88,15 @@ function! s:lf_gitlab_source(...)
     return l:source
 endfunc
 
+function! s:lf_gitlab_mr_preview(orig_buf_nr, orig_cursor, line, args)
+    let items = split(a:line, ' ')
+    let key_item = items[0]
+    return [s:db_path.'/'.key_item, 1, '']
+endfunc
+
 let g:Lf_Extensions.mr = {
-            \ 'source': string(function('s:lf_gitlab_source'))[10:-3]}
+            \ 'source': string(function('s:lf_gitlab_source'))[10:-3],
+            \ 'preview': string(function('s:lf_gitlab_mr_preview'))[10:-3]}
 
 call s:init_python()
 call s:lf_gitlab_ping()

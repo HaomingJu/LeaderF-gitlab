@@ -74,3 +74,4 @@ class GitLabAPIs:
 gitlab = GitLabAPIs()
 def mr(): return gitlab.request_mr()
 def ping(): return gitlab.request_ping()
+def db_path(): return gitlab.db_path
