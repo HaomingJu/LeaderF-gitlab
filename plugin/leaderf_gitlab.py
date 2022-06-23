@@ -9,21 +9,28 @@ logging.basicConfig(level = logging.INFO)
 
 class GitLabAPIs:
     def __init__(self):
-        self.request_url = config.request_url
-        self.api_root = config.api_root
         self.db_path = os.path.dirname(os.path.abspath(__file__)) + '/.db'
         if not os.path.exists(self.db_path):
             os.mkdir(self.db_path)
+
         try:
             with open(self.db_path + '/token', 'r') as token_file:
                 self.token = token_file.readline()
         except:
             self.token = ""
+
+        try:
+            with open(self.db_path + '/url', 'r') as url_file:
+                self.request_url = url_file.readline()
+        except:
+            self.request_url = ""
+
+
         self.header = {'PRIVATE-TOKEN': self.token, 'Content-Type': 'application/json'}
 
 
     def request_code(self, api_name):
-        return "{0}{1}/{2}".format(self.request_url, self.api_root, api_name)
+        return "{0}/{1}".format(self.request_url, api_name)
 
     def request_any_get(self, url_str, timeout, callback_func):
         try:
@@ -44,8 +51,17 @@ class GitLabAPIs:
         except:
             print("Write token on .db/token failed.")
             return False
+        global_url = vim.eval("g:Lf_GitlabURL")
+        try:
+            with open(self.db_path + '/url', 'w') as url_file:
+                url_file.write(global_url)
+        except:
+            print("Write url on .db/url failed.")
+            return False
+
         try:
             self.header['PRIVATE-TOKEN'] = global_token
+            self.request_url = global_url
             response = requests.get(url = self.request_code("/version"), headers = self.header, timeout = 0.5)
             return callback.version(response)
         except:

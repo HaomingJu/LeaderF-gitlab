@@ -57,6 +57,9 @@ function! s:lf_gitlab_ping()
     if !exists("g:Lf_GitlabToken")
         let g:Lf_GitlabToken = ""
     endif
+    if !exists("g:Lf_GitlabURL")
+        let g:Lf_GitlabURL = ""
+    endif
 
     let l:ping = v:false
     if g:Lf_PythonVersion == 2
