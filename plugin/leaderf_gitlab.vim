@@ -54,17 +54,23 @@ function! s:init_python()
 endfunc
 
 function! s:lf_gitlab_ping()
+    if !exists("g:Lf_GitlabToken")
+        let g:Lf_GitlabToken = ""
+    endif
+
     let l:ping = v:false
     if g:Lf_PythonVersion == 2
         let l:ping = pyeval('leaderf_gitlab.ping()')
     else
         let l:ping = py3eval('leaderf_gitlab.ping()')
     endif
+
     if l:ping == v:false
-        echo "[LeaderF-gitlab]: Please check your token or address of gitlab"
-        echo "[LeaderF-gitlab]: Please check your token or address of gitlab"
+        echo "[LeaderF-gitlab]: Please check your token or address of gitlab, or proxy"
+        echo "[LeaderF-gitlab]: Please check your token or address of gitlab, or proxy"
     endif
 endfunc
+
 
 function! s:lf_gitlab_source(...)
     let l:source = []
