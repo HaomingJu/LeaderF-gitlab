@@ -1,10 +1,7 @@
 import requests
-import logging
 import callback
 import vim
 import os
-
-logging.basicConfig(level = logging.INFO)
 
 class GitLabAPIs:
     def __init__(self):
