@@ -1,3 +1,5 @@
+<img width="920" alt="image" src="https://user-images.githubusercontent.com/24786568/175755805-16cd880b-0e6a-4eb4-8b00-86e66d47cdec.png">
+
 # Usage
 
 on Packer.nvim
@@ -64,6 +66,6 @@ Token Scope只需要 `api` 权限
 
 # TODO
 - [ ] 将命令`Leaderf mr`集成到`LeaderF*`命令中
-- [ ] 补充完整的使用说明, 如何获取token, 如何在不同插件管理器中配置
+- [x] 补充完整的使用说明, 如何获取token, 如何在不同插件管理器中配置
 - [ ] 选择单个条目后, 进入二级命令: `open url` 'open info'
-- [ ] Preview在NORMAL模式下失效
+- [x] Preview在NORMAL模式下失效
