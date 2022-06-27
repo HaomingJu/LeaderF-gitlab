@@ -69,3 +69,9 @@ Token Scope只需要 `api` 权限
 - [x] 补充完整的使用说明, 如何获取token, 如何在不同插件管理器中配置
 - [ ] 选择单个条目后, 进入二级命令: `open url` 'open info'
 - [x] Preview在NORMAL模式下失效
+- [ ] 引入一些MR的可选参数进来
+- [x] 查看REST API是否支持md5校验 避免重复拉取大量数据
+
+# Ref
+
+[curl convert to python](https://curlconverter.com/)
