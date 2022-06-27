@@ -100,3 +100,5 @@ let g:Lf_Extensions.mr = {
 
 call s:init_python()
 call s:lf_gitlab_ping()
+
+command! -bar -nargs=0 LeaderfMR Leaderf mr

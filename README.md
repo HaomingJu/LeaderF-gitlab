@@ -62,10 +62,10 @@ Token Scope只需要 `api` 权限
 
 # Usage
 
-`:Leaderf mr` 列出所有assigned to you & opened的merge request
+`:LeaderfMR` 列出所有assigned to you & opened的merge request
 
 # TODO
-- [ ] 将命令`Leaderf mr`集成到`LeaderF*`命令中
+- [x] 将命令`Leaderf mr`集成到`LeaderFMR`命令中
 - [x] 补充完整的使用说明, 如何获取token, 如何在不同插件管理器中配置
 - [ ] 选择单个条目后, 进入二级命令: `open url` 'open info'
 - [x] Preview在NORMAL模式下失效
